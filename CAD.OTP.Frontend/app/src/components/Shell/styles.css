@@ -1,0 +1,16 @@
+@value colors: "../common/styles/colors.css";
+
+@value grey from colors;
+
+.container {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+  overflow: auto;
+  background-color: grey;
+}

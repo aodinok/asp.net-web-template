@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    semi: ["warn", "never"],
+    indent: ["warn", 2, { "SwitchCase": 1 }],
+    quotes: ["warn", "single"],
+    "import/no-extraneous-dependencies": ["warn", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "**/*.dev.js"]}]
+  },
+  "plugins": [ "react" ],
+  "globals": {
+    "__DEVELOPMENT__": true
+  }
+}

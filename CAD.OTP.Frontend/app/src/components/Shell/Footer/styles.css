@@ -1,0 +1,13 @@
+.footer {
+  flex: 0 0 auto;
+  padding: 5px;
+  width: 100%;
+  background: #182434;
+  color: #FFFFFF;
+}
+
+.footer > span {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+}

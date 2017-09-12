@@ -1,0 +1,36 @@
+.navbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #182434;
+  color: #FFFFFF;
+}
+
+.title {
+  text-overflow: ellipsis;
+  flex: 20;
+  margin: 15px;
+  font-size: 25px;
+}
+
+.logo {
+  flex: 2;
+  max-width: 200px;
+  margin: 15px;
+  white-space: nowrap;
+}
+
+.username {
+  text-align: right;
+  margin: 0 30px;
+  flex: 1;
+}
+
+.logout {
+  margin-right: 20px;
+}
+
+.logout {
+  flex: 1;
+}
