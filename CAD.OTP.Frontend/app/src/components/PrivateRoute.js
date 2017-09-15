@@ -18,12 +18,12 @@ const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => (
 
 PrivateRoute.propTypes = {
   component: PropTypes.func,
-  location: PropTypes.string,
+  location: PropTypes.object,
   isLoggedIn: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: !!state.auth.username
+  isLoggedIn: !!state.auth.token
 })
 
 export default connect(mapStateToProps)(PrivateRoute)

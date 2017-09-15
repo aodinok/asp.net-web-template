@@ -9,7 +9,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
+    alias: {
+      "jqw": path.resolve(__dirname, 'vendor/jqwidgets-react')
+    }
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
@@ -18,7 +21,10 @@ module.exports = {
     rules: [{
         test: /.js$/,
         exclude: /node_modules/,
-        include: path.join(__dirname, 'src'),
+        include: [
+          path.join(__dirname, 'src'),
+          path.join(__dirname, 'vendor')
+        ],
         use: [{
             loader: 'babel-loader',
             options: {

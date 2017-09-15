@@ -18,9 +18,9 @@ HeaderContainer.propTypes = {
   isLoggedIn: PropTypes.bool
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn: !!state.auth.username,
-  ...ownProps
+const mapStateToProps = (state) => ({
+  isLoggedIn: !!state.auth.token,
+  username: state.auth.username
 })
 
 const mapDispatchToProps = dispatch => {

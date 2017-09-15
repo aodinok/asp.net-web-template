@@ -10,13 +10,22 @@
     "es6": true
   },
   "rules": {
-    semi: ["warn", "never"],
-    indent: ["warn", 2, { "SwitchCase": 1 }],
-    quotes: ["warn", "single"],
-    "import/no-extraneous-dependencies": ["warn", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "**/*.dev.js"]}]
+    "semi": ["warn", "never"],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "quotes": ["warn", "single"],
+    "import/no-extraneous-dependencies": ["warn", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "**/*.dev.js"]}],
+    "no-console": ["error", { "allow": ["warn", "error"] }]
   },
   "plugins": [ "react" ],
   "globals": {
-    "__DEVELOPMENT__": true
+    "__DEVELOPMENT__": true,
+    "__API_SERVER__": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.dev.js"
+      }
+    }
   }
 }

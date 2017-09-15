@@ -2,10 +2,12 @@
 <html>
 <head>
     <title>CleverCAD System Performance Dashboard</title>
+    <link rel="stylesheet" href="app/dist/vendor/jqwidgets/styles/jqx.base.css" type="text/css"/>
 </head>
 <body>
     <div id="root" />
-
+    <script type="text/javascript" src="/app/dist/vendor/jqwidgets/jqx-all.js"></script>
+    <script type="text/javascript" src="/app/dist/vendor/jqwidgets/globalization/globalize.js"></script>
     @if (Settings.UseWebpackDevServer)
     {
         <script type="text/javascript" src="@(Settings.WebpackDevServerRoot)/bundle.js"></script>

@@ -14,15 +14,25 @@ module.exports = merge(common, {
     },
     devtool: 'inline-source-map',
     devServer: {
-        headers: { "Access-Control-Allow-Origin": "*" },
+        headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: path.resolve(__dirname, 'dist'),
-        hot: true
+        hot: true,
+        proxy: {
+          '/api': {
+            target: 'http://localhost:9062/',
+            pathRewrite: {'^/api' : ''}
+          }
+        },
+        historyApiFallback: {
+          index: 'index.html'
+        }
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.DefinePlugin({
-          __DEVELOPMENT__: true
+          __DEVELOPMENT__: JSON.stringify(true),
+          __API_SERVER__: JSON.stringify('http://localhost:8080/api')
       })
     ],
     stats: {

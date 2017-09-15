@@ -1,4 +1,8 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, race, take } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
+
+import { getAuthToken, setAuthToken, removeAuthToken } from '../../services/authToken'
+import { fetchToken, killToken } from '../../services/apiClient'
 
 const LOGIN = 'ccad-otp/auth/LOGIN'
 const LOGIN_SUCCESS = 'ccad-otp/auth/LOGIN_SUCCESS'
@@ -7,7 +11,14 @@ const LOGOUT = 'ccad-otp/auth/LOGOUT'
 const LOGOUT_SUCCESS = 'ccad-otp/auth/LOGOUT_SUCCESS'
 const LOGOUT_FAIL = 'ccad-otp/auth/LOGOUT_FAIL'
 
-const initialState = {}
+const initialState = {
+  loggingIn: false,
+  loggingOut: false,
+  username: null,
+  expiresAt: null,
+  error: null,
+  ...getAuthToken()
+}
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -20,14 +31,19 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingIn: false,
-        username: action.username
+        token: action.token,
+        username: action.username,
+        expiresAt: action.expiresAt,
+        error: null
       }
     case LOGIN_FAIL:
       return {
         ...state,
         loggingIn: false,
         username: null,
-        loginError: action.error
+        token: null,
+        expiresAt: null,
+        error: action.error
       }
     case LOGOUT:
       return {
@@ -38,13 +54,16 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingOut: false,
-        username: null
+        username: null,
+        token: null,
+        expiresAt: null,
+        error: null
       }
     case LOGOUT_FAIL:
       return {
         ...state,
         loggingOut: false,
-        logoutError: action.error
+        error: action.error
       }
     default:
       return state
@@ -56,11 +75,29 @@ export function login (payload) {
 }
 
 function* doLogin(action) {
+  let expiresIn = 0
   try {
-    const response = yield call(() => fetch('./token'), action.payload)
-    yield put({type: LOGIN_SUCCESS, token: response.token, username: 'fakeUser'})
+    const response = yield call(fetchToken, action.payload)
+    if (response.error) {
+      throw new Error(response.error_description || response.error)
+    }
+    expiresIn = response.expires_in
+    yield call(setAuthToken, response)
+    const token = yield call(setAuthToken, response)
+    yield put({type: LOGIN_SUCCESS, ...token})
   } catch (e) {
-    yield put({type: LOGIN_FAIL, message: e.message})
+    yield put({type: LOGIN_FAIL, error: e.message})
+  }
+
+  // auto logout on token expiration
+  if (expiresIn > 0) {
+    const winner = yield race({
+      logoutByUser: take(LOGOUT),
+      logoutByTimeout: call(delay, expiresIn * 1000)
+    })
+    if (winner.logoutByTimeout) {
+      yield put({type: LOGOUT})
+    }
   }
 }
 
@@ -70,8 +107,9 @@ export function logout (payload) {
 
 function* doLogout(action) {
   try {
-    const response = yield call(() => fetch('./logout'), action.payload)
-    yield put({type: LOGOUT_SUCCESS, token: response.token})
+    yield call(killToken, action.payload)
+    yield call(removeAuthToken)
+    yield put({type: LOGOUT_SUCCESS})
   } catch (e) {
     yield put({type: LOGOUT_FAIL, message: e.message})
   }

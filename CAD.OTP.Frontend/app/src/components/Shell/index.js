@@ -20,9 +20,9 @@ const Shell = ({children}) => (
   </div>
 )
 
+
 Shell.propTypes = {
-  children: PropTypes.node,
-  isLoggedIn: PropTypes.bool
+  children: PropTypes.node
 }
 
 export default CSSModules(Shell, styles)
