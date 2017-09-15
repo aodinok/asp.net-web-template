@@ -1,7 +1,7 @@
 {
-  "name": "ccad_otp",
+  "name": "asp_net_web_template",
   "version": "0.0.1",
-  "description": "CleverDevices On-Time Vehicle Performance",
+  "description": "My template for ASP.NET project with Webpack/React/Redux/Redux-Saga",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "fakeApi": "node fakeApi.dev.js"
   },
-  "author": "CleverDevices",
+  "author": "Oleksandr Odinok",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",

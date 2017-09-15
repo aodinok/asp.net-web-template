@@ -1,0 +1,107 @@
+{
+  "fleet": {
+    "earlyPercent": 10, "latePercent": 15, "onTimePercent": 75
+  },
+  "garages": [
+    { "id": 1, "name": "Garage", "earlyPercent": 20, "latePercent": 10, "onTimePercent": 70, "warningKPITreshold": 80, "criticalKPITreshold": 70 },
+    { "id": 2, "name": "Garage B", "earlyPercent": 5, "latePercent": 35, "onTimePercent": 60, "warningKPITreshold": 80, "criticalKPITreshold": 70  }
+  ],
+  "routes": [
+    { "id": 1, "garageId": 1, "name": "Route 34", "earlyPercent": 20, "latePercent": 10, "onTimePercent": 70 },
+    { "id": 2, "garageId": 2, "name": "Route 11", "earlyPercent": 5, "latePercent": 35, "onTimePercent": 60, "earliestVehicleNumber": "45", "latestVehicleNumber": "45" }
+  ],
+  "runs": [
+    {
+      "id": 1,
+      "routeId": 1,
+      "operator": {
+        "id": 1,
+        "number": "23435",
+        "firstName": "Op. First Name",
+        "lastName": "Op. Last Name"
+      },
+      "vehicle": {
+        "id": 1,
+        "number": "23435",
+        "workId1": null,
+        "workId2": "2345",
+        "adherance": -4
+      },
+      "number": "45"
+    }
+  ],
+  "performance": [
+    {
+      "garageId": 1,
+      "name": "Garage A",
+      "routes": [
+        {
+          "id": 1,
+          "garageId": 1,
+          "name": "Route 34",
+          "earlyPercent": 20,
+          "latePercent": 10,
+          "onTimePercent": 70,
+          "earliestVehicleNumber": "45",
+          "latestVehicleNumber": "45",
+          "runs": [
+            {
+              "id": 1,
+              "routeId": 1,
+              "number": "12345",            
+              "operator": {
+                "id": 1,
+                "number": "23435",
+                "firstName": "Op. First Name",
+                "lastName": "Op. Last Name"
+              },
+              "vehicle": {
+                "id": 1,
+                "number": "45",
+                "workId1": null,
+                "workId2": "2345",
+                "adherance": -4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "garageId": 2,
+      "name": "Garage B",
+      "routes": [
+        {
+          "id": 56,
+          "garageId": 2,
+          "name": "Route 53",
+          "earlyPercent": 21,
+          "latePercent": 19,
+          "onTimePercent": 60,
+          "earliestVehicleNumber": "42",
+          "latestVehicleNumber": "42",
+          "runs": [
+            {
+              "id": 1,
+              "routeId": 56,
+              "number": "12345",            
+              "operator": {
+                "id": 1,
+                "number": "23435",
+                "firstName": "Op. First Name",
+                "lastName": "Op. Last Name"
+              },
+              "vehicle": {
+                "id": 34,
+                "number": "42",
+                "workId1": null,
+                "workId2": "2345",
+                "adherance": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
